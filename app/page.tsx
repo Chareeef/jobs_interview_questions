@@ -3,7 +3,8 @@
 import { useState, FormEvent } from "react";
 
 export default function Home() {
-  const [jobTitle, setJobTitle] = useState("Customer Success Manager");
+  const [jobTitle, setJobTitle] = useState("");
+  const [submittedTitle, setSubmittedTitle] = useState("");
   const [questions, setQuestions] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,6 +32,7 @@ export default function Home() {
       }
 
       setQuestions(data.questions);
+      setSubmittedTitle(trimmed);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unexpected error");
     } finally {
@@ -70,7 +72,7 @@ export default function Home() {
 
       {questions.length > 0 && (
         <section className="questions">
-          <h2>Interview questions for {jobTitle}</h2>
+          <h2>Interview questions for {submittedTitle}</h2>
           {questions.map((q, i) => (
             <div key={i} className="question">
               <div className="question-number">{i + 1}</div>
